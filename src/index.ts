@@ -13,6 +13,8 @@ const handler = (request: IncomingMessage, response: ServerResponse) => {
   }
   if (url === '/create-user' && method === 'POST') {
     parseUserName(request)
+    response.statusCode = 302
+    response.setHeader('Location', '/')
     return response.end()
   }
 }
