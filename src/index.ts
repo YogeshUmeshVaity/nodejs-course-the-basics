@@ -25,7 +25,9 @@ function parseUserName(request: http.IncomingMessage) {
     body.push(chunk)
   })
   request.on('end', () => {
-    const userName = Buffer.concat(body).toString()
+    // We get the string "userName=..." here. Split to get the only what is after the "=" sign.
+    const parsedBody = Buffer.concat(body).toString()
+    const userName = parsedBody.split('=')[1]
     console.log(`User name to be created: ${userName}`)
   })
 }
