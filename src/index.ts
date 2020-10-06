@@ -5,14 +5,16 @@ const handler = (request: IncomingMessage, response: ServerResponse) => {
   const method = request.method
   if (url === '/') {
     sendRegistrationForm(response)
+    return response.end()
   }
   if (url === '/users') {
     sendUserList(response)
+    return response.end()
   }
   if (url === '/create-user' && method === 'POST') {
     parseUserName(request)
+    return response.end()
   }
-  response.end()
 }
 
 http.createServer(handler).listen(3000, () => console.log('started'))
@@ -42,7 +44,6 @@ function sendUserList(response: http.ServerResponse) {
   response.write('</ul>')
   response.write('</body>')
   response.write('</html>')
-  response.end()
 }
 
 function sendRegistrationForm(response: http.ServerResponse) {
@@ -56,5 +57,4 @@ function sendRegistrationForm(response: http.ServerResponse) {
   response.write('</form>')
   response.write('</body>')
   response.write('</html>')
-  response.end()
 }
